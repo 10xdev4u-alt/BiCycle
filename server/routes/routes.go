@@ -27,6 +27,7 @@ func SetupRouter(router *gin.Engine) {
 		guardRoutes := v1.Group("/guard")
 		{
 			guardRoutes.POST("/scan", handlers.ScanTicket)
+			guardRoutes.POST("/approve-pickup", handlers.ApprovePickup)
 		}
 
 		// Other resource routes can be added here

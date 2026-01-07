@@ -50,3 +50,36 @@ func ScanTicket(c *gin.Context) {
 		"guard_code": "3847",
 	})
 }
+
+type ApprovePickupRequest struct {
+	TicketToken string `json:"ticket_token" binding:"required"`
+	GuardID     string `json:"guard_id" binding:"required"`
+	Action      string `json:"action" binding:"required"`
+}
+
+// ApprovePickup handles the guard's approval of a bike pickup.
+// @Summary Approve a bike pickup
+// @Description Receives a ticket token, guard ID, and an action ('approve' or 'reject') to confirm a bike pickup.
+// @Tags Guards
+// @Accept  json
+// @Produce  json
+// @Param   body  body   ApprovePickupRequest  true  "Approve Pickup Payload"
+// @Success 200 {object} gin.H{"success": bool}
+// @Failure 400 {object} gin.H{"error": string}
+// @Router /api/v1/guard/approve-pickup [post]
+func ApprovePickup(c *gin.Context) {
+	var json ApprovePickupRequest
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// TODO:
+	// 1. Verify Guard JWT
+	// 2. Update booking: status='picked_up', picked_up_at=NOW()
+	// 3. Update bike: status='in_use'
+	// 4. Clear Redis expiry
+
+	// For now, assume success
+	c.JSON(http.StatusOK, gin.H{"success": true})
+}
