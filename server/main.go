@@ -5,17 +5,24 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/api"
 	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/config"
+	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/database"
 	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/routes"
 )
 
 func main() {
 	cfg := config.LoadConfig()
 
+	db := database.InitDB(cfg)
+	defer db.Close()
+
+	api := api.NewAPI(db, cfg)
+
 	router := gin.Default()
 
 	// Setup routes
-	routes.SetupRouter(router)
+	routes.SetupRouter(router, api)
 
 	// Add a root endpoint for basic health check
 	router.GET("/", func(c *gin.Context) {

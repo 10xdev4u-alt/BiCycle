@@ -1,4 +1,4 @@
-package handlers
+package api
 
 import (
 	"net/http"
@@ -12,17 +12,7 @@ type ScanBookRequest struct {
 }
 
 // ScanAndBookCycle handles the scanning of a bike's QR code and attempts to book it.
-// @Summary Scan and book a cycle
-// @Description Receives an encrypted bike QR and the current stand ID to book a cycle.
-// @Tags Cycles
-// @Accept  json
-// @Produce  json
-// @Param   body  body   ScanBookRequest  true  "Scan and Book Payload"
-// @Success 200 {object} gin.H{"success": bool, "booking_id": string, "bike_display_id": string, "message": string}
-// @Failure 400 {object} gin.H{"error": string}
-// @Failure 409 {object} gin.H{"error": string, "message": string}
-// @Router /api/v1/cycles/scan-book [post]
-func ScanAndBookCycle(c *gin.Context) {
+func (a *API) ScanAndBookCycle(c *gin.Context) {
 	var json ScanBookRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -51,16 +41,7 @@ type PhotoPickupRequest struct {
 }
 
 // UploadPickupPhoto handles the upload of a pickup photo for a booking.
-// @Summary Upload pickup photo
-// @Description Receives a booking ID and a base64 encoded photo of the bike at pickup.
-// @Tags Cycles
-// @Accept  json
-// @Produce  json
-// @Param   body  body   PhotoPickupRequest  true  "Photo Pickup Payload"
-// @Success 200 {object} gin.H{"success": bool, "ticket_qr": string, "guard_code": string, "expires_in": int}
-// @Failure 400 {object} gin.H{"error": string}
-// @Router /api/v1/cycles/photo-pickup [post]
-func UploadPickupPhoto(c *gin.Context) {
+func (a *API) UploadPickupPhoto(c *gin.Context) {
 	var json PhotoPickupRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

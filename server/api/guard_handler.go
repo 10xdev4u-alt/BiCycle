@@ -1,4 +1,4 @@
-package handlers
+package api
 
 import (
 	"net/http"
@@ -11,16 +11,7 @@ type GuardScanRequest struct {
 }
 
 // ScanTicket handles the scanning of a student's ticket by a guard.
-// @Summary Scan a student ticket
-// @Description Receives a ticket QR from a student, validates it, and returns booking details.
-// @Tags Guards
-// @Accept  json
-// @Produce  json
-// @Param   body  body   GuardScanRequest  true  "Ticket QR Payload"
-// @Success 200 {object} gin.H{"type": string, "student": object, "bike": object, "photos": object, "duration": int, "guard_code": string}
-// @Failure 400 {object} gin.H{"error": string}
-// @Router /api/v1/guard/scan [post]
-func ScanTicket(c *gin.Context) {
+func (a *API) ScanTicket(c *gin.Context) {
 	var json GuardScanRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -58,16 +49,7 @@ type ApprovePickupRequest struct {
 }
 
 // ApprovePickup handles the guard's approval of a bike pickup.
-// @Summary Approve a bike pickup
-// @Description Receives a ticket token, guard ID, and an action ('approve' or 'reject') to confirm a bike pickup.
-// @Tags Guards
-// @Accept  json
-// @Produce  json
-// @Param   body  body   ApprovePickupRequest  true  "Approve Pickup Payload"
-// @Success 200 {object} gin.H{"success": bool}
-// @Failure 400 {object} gin.H{"error": string}
-// @Router /api/v1/guard/approve-pickup [post]
-func ApprovePickup(c *gin.Context) {
+func (a *API) ApprovePickup(c *gin.Context) {
 	var json ApprovePickupRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -92,16 +74,7 @@ type ApproveReturnRequest struct {
 }
 
 // ApproveReturn handles the guard's approval of a bike return.
-// @Summary Approve a bike return
-// @Description Receives a ticket token, guard ID, an action ('approve' or 'reject'), and a damage flag to confirm a bike return.
-// @Tags Guards
-// @Accept  json
-// @Produce  json
-// @Param   body  body   ApproveReturnRequest  true  "Approve Return Payload"
-// @Success 200 {object} gin.H{"success": bool}
-// @Failure 400 {object} gin.H{"error": string}
-// @Router /api/v1/guard/approve-return [post]
-func ApproveReturn(c *gin.Context) {
+func (a *API) ApproveReturn(c *gin.Context) {
 	var json ApproveReturnRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
