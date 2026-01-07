@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/config"
+	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/routes"
 )
 
 func main() {
@@ -13,9 +14,13 @@ func main() {
 
 	router := gin.Default()
 
+	// Setup routes
+	routes.SetupRouter(router)
+
+	// Add a root endpoint for basic health check
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, PrinceTheProgrammer! Welcome to TheBiCycleApp Backend (with Config Loading)!",
+			"message": "The BiCycle App API is running!",
 		})
 	})
 
