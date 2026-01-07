@@ -16,6 +16,12 @@ func SetupRouter(router *gin.Engine) {
 			standRoutes.POST("/scan", handlers.ScanStand)
 		}
 
+		// Cycle-related routes
+		cycleRoutes := v1.Group("/cycles")
+		{
+			cycleRoutes.POST("/scan-book", handlers.ScanAndBookCycle)
+		}
+
 		// Other resource routes can be added here
 		// e.g., cycleRoutes, userRoutes, etc.
 	}
