@@ -1,15 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, PrinceTheProgrammer! Welcome to TheBiCycleApp Backend!")
+	router := gin.Default()
+
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello, PrinceTheProgrammer! Welcome to TheBiCycleApp Backend (powered by Gin)!",
+		})
 	})
 
-	fmt.Println("Server is running on port 8080")
-	http.ListenAndServe(":8080", nil)
+	router.Run(":8080") // listen and serve on 0.0.0.0:8080
 }
