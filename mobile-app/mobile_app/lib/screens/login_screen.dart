@@ -39,71 +39,122 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    @override
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              theme.colorScheme.primary.withOpacity(0.8),
-              theme.colorScheme.secondary.withOpacity(0.8),
-            ],
-          ),
-        ),
-        child: Center(
-          child: _isLoading
-              ? const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'SVCE Cycle Access',
-                      style: GoogleFonts.poppins(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onPrimary,
-                      ),
+    Widget build(BuildContext context) {
+
+      final theme = Theme.of(context);
+
+      final isDarkMode = theme.brightness == Brightness.dark;
+
+  
+
+      return Scaffold(
+
+        backgroundColor: theme.colorScheme.background,
+
+        body: SafeArea(
+
+          child: Center(
+
+            child: SingleChildScrollView(
+
+              padding: const EdgeInsets.all(24.0),
+
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+
+                  Icon(
+
+                    Icons.directions_bike,
+
+                    size: 80,
+
+                    color: theme.colorScheme.primary,
+
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  Text(
+
+                    'SVCE Cycle Access',
+
+                    textAlign: TextAlign.center,
+
+                    style: theme.textTheme.headlineLarge?.copyWith(
+
+                      fontWeight: FontWeight.bold,
+
+                      color: theme.colorScheme.primary,
+
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Your campus ride, one scan away.',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: theme.colorScheme.onPrimary.withOpacity(0.9),
-                      ),
+
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+
+                    'Your campus ride, one scan away.',
+
+                    textAlign: TextAlign.center,
+
+                    style: theme.textTheme.titleMedium?.copyWith(
+
+                      color: theme.colorScheme.onBackground.withOpacity(0.7),
+
                     ),
-                    const SizedBox(height: 64),
+
+                  ),
+
+                  const SizedBox(height: 48),
+
+                  if (_isLoading)
+
+                    const CircularProgressIndicator()
+
+                  else
+
                     ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colorScheme.onPrimary,
-                        foregroundColor: theme.colorScheme.primary,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+
                       onPressed: _signIn,
-                      icon: const Icon(Icons.school), // Placeholder for Google icon
-                      label: Text(
-                        'Login with College Mail',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+
+                      style: theme.elevatedButtonTheme.style?.copyWith(
+
+                        backgroundColor: MaterialStateProperty.all(theme.colorScheme.primary),
+
+                        foregroundColor: MaterialStateProperty.all(theme.colorScheme.onPrimary),
+
                       ),
+
+                      icon: const Icon(Icons.school, size: 24),
+
+                      label: const Text(
+
+                        'Login with College Mail',
+
+                      ),
+
                     ),
-                  ],
-                ),
+
+                ],
+
+              ),
+
+            ),
+
+          ),
+
         ),
-      ),
-    );
+
+      );
+
+    }
+
   }
-}
+
+  

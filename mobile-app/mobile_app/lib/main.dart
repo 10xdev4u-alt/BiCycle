@@ -28,41 +28,106 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  ThemeData _buildThemeData() {
-    const primaryColor = Color(0xFF6200EE);
-    const secondaryColor = Color(0xFF03DAC6);
+    ThemeData _buildThemeData() {
 
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        primary: primaryColor,
-        secondary: secondaryColor,
-        background: const Color(0xFFF4F6F8),
-        surface: Colors.white,
-        onPrimary: Colors.white,
-        onSecondary: Colors.black,
-        onBackground: Colors.black,
-        onSurface: Colors.black,
-        error: const Color(0xFFB00020),
-        onError: Colors.white,
-      ),
-      textTheme: GoogleFonts.poppinsTextTheme(),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-        elevation: 4,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 16),
+      const primaryColor = Color(0xFF003B46);
+
+      const secondaryColor = Color(0xFF07575B);
+
+      const accentColor = Color(0xFF66A5AD);
+
+      const backgroundColor = Color(0xFFF4F6F8);
+
+      const surfaceColor = Colors.white;
+
+      const onPrimaryColor = Colors.white;
+
+      const onBackgroundColor = Color(0xFF121212);
+
+  
+
+      final baseTheme = ThemeData.from(
+
+        colorScheme: ColorScheme(
+
+          primary: primaryColor,
+
+          secondary: secondaryColor,
+
+          surface: surfaceColor,
+
+          background: backgroundColor,
+
+          error: const Color(0xFFB00020),
+
+          onPrimary: onPrimaryColor,
+
+          onSecondary: onPrimaryColor,
+
+          onSurface: onBackgroundColor,
+
+          onBackground: onBackgroundColor,
+
+          onError: Colors.white,
+
+          brightness: Brightness.light,
+
         ),
-      ),
-    );
+
+        useMaterial3: true,
+
+      );
+
+  
+
+      return baseTheme.copyWith(
+
+        textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
+
+        appBarTheme: const AppBarTheme(
+
+          backgroundColor: primaryColor,
+
+          foregroundColor: onPrimaryColor,
+
+          elevation: 0,
+
+          centerTitle: true,
+
+        ),
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+
+          style: ElevatedButton.styleFrom(
+
+            backgroundColor: accentColor,
+
+            foregroundColor: onPrimaryColor,
+
+            shape: RoundedRectangleBorder(
+
+              borderRadius: BorderRadius.circular(30),
+
+            ),
+
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+
+          ),
+
+        ),
+
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+
+          backgroundColor: accentColor,
+
+          foregroundColor: onPrimaryColor,
+
+        ),
+
+      );
+
+    }
+
   }
-}
+
+  
