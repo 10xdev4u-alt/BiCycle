@@ -26,8 +26,8 @@ func LoadConfig() *Config {
 	return &Config{
 		AppPort:             getEnv("APP_PORT", "8080"),
 		DatabaseURL:         getEnv("DATABASE_URL", "postgres://user:password@localhost:5432/bicycleapp_db?sslmode=disable"),
-		GoogleClientID:      getEnv("GOOGLE_CLIENT_ID", ""),
-		GoogleClientSecret:  getEnv("GOOGLE_CLIENT_SECRET", ""),
+		GoogleClientID:      getEnv("GOOGLE_CLIENT_ID", "YOUR_GOOGLE_CLIENT_ID"),
+		GoogleClientSecret:  getEnv("GOOGLE_CLIENT_SECRET", "YOUR_GOOGLE_CLIENT_SECRET"),
 		GoogleRedirectURL:   getEnv("GOOGLE_REDIRECT_URL", "http://localhost:8080/auth/google/callback"),
 		JWTSecret:           getEnv("JWT_SECRET", "supersecretjwtkey"),
 		EncryptionKey:       getEnv("ENCRYPTION_KEY", "12345678901234567890123456789012"),

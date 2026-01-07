@@ -30,6 +30,13 @@ func SetupRouter(router *gin.Engine, api *api.API) {
 			guardRoutes.POST("/approve-pickup", api.ApprovePickup)
 			guardRoutes.POST("/approve-return", api.ApproveReturn)
 		}
+	
+		// Auth routes
+		authRoutes := router.Group("/auth")
+		{
+			authRoutes.GET("/google", api.GoogleLogin)
+			authRoutes.GET("/google/callback", api.GoogleCallback)
+		}
 
 		// Other resource routes can be added here
 		// e.g., cycleRoutes, userRoutes, etc.
