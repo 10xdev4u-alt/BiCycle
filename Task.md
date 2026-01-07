@@ -835,6 +835,8 @@ Response:
     - Created the main directories for the backend server and mobile application.
     - Initialized a new Go module within the `server` directory.
     - Created the initial `main.go` file for the server.
+    - Installed `goose` for database migrations.
+    - Designed and created the initial PostgreSQL database schema (`users`, `stands`, `bikes`, `bookings`, `violations` tables) in a `goose` migration file.
 - **Frontend**
     - Switched mobile app development to Flutter.
     - Manually downloaded and extracted Flutter SDK.
