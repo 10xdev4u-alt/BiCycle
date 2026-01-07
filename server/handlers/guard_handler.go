@@ -83,3 +83,38 @@ func ApprovePickup(c *gin.Context) {
 	// For now, assume success
 	c.JSON(http.StatusOK, gin.H{"success": true})
 }
+
+type ApproveReturnRequest struct {
+	TicketToken string `json:"ticket_token" binding:"required"`
+	GuardID     string `json:"guard_id" binding:"required"`
+	Action      string `json:"action" binding:"required"`
+	Damage      bool   `json:"damage"`
+}
+
+// ApproveReturn handles the guard's approval of a bike return.
+// @Summary Approve a bike return
+// @Description Receives a ticket token, guard ID, an action ('approve' or 'reject'), and a damage flag to confirm a bike return.
+// @Tags Guards
+// @Accept  json
+// @Produce  json
+// @Param   body  body   ApproveReturnRequest  true  "Approve Return Payload"
+// @Success 200 {object} gin.H{"success": bool}
+// @Failure 400 {object} gin.H{"error": string}
+// @Router /api/v1/guard/approve-return [post]
+func ApproveReturn(c *gin.Context) {
+	var json ApproveReturnRequest
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// TODO:
+	// 1. Update booking: status='returned', returned_at=NOW()
+	// 2. Update bike: status='available', current_stand='stand_mg_12'
+	// 3. Clear Redis: DEL user:active:2023CS0113
+	// 4. INCR stand:available:stand_mg_12
+	// 5. Check violations (late, fast, no-show)
+
+	// For now, assume success
+	c.JSON(http.StatusOK, gin.H{"success": true})
+}
