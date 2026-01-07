@@ -835,6 +835,13 @@ Response:
     - Created the main directories for the backend server and mobile application.
     - Initialized a new Go module within the `server` directory.
     - Created the initial `main.go` file for the server.
+- **Frontend**
+    - Switched mobile app development to Flutter.
+    - Manually downloaded and extracted Flutter SDK.
+    - Manually downloaded and extracted Android Command-line Tools.
+    - Installed Android SDK components (platform-tools, build-tools, platforms).
+    - Configured Flutter to use JDK 17 explicitly.
+    - Initialized the Flutter project (`mobile_app`) in the `mobile-app` directory.
 
 ---
 
