@@ -23,6 +23,12 @@ func SetupRouter(router *gin.Engine) {
 			cycleRoutes.POST("/photo-pickup", handlers.UploadPickupPhoto)
 		}
 
+		// Guard-related routes
+		guardRoutes := v1.Group("/guard")
+		{
+			guardRoutes.POST("/scan", handlers.ScanTicket)
+		}
+
 		// Other resource routes can be added here
 		// e.g., cycleRoutes, userRoutes, etc.
 	}
