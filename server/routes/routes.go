@@ -20,6 +20,7 @@ func SetupRouter(router *gin.Engine) {
 		cycleRoutes := v1.Group("/cycles")
 		{
 			cycleRoutes.POST("/scan-book", handlers.ScanAndBookCycle)
+			cycleRoutes.POST("/photo-pickup", handlers.UploadPickupPhoto)
 		}
 
 		// Other resource routes can be added here
