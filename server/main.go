@@ -1,19 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/config"
 )
 
 func main() {
+	cfg := config.LoadConfig()
+
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, PrinceTheProgrammer! Welcome to TheBiCycleApp Backend (powered by Gin)!",
+			"message": "Hello, PrinceTheProgrammer! Welcome to TheBiCycleApp Backend (with Config Loading)!",
 		})
 	})
 
-	router.Run(":8080") // listen and serve on 0.0.0.0:8080
+	router.Run(fmt.Sprintf(":%s", cfg.AppPort)) // listen and serve on configured port
 }

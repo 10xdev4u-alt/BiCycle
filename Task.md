@@ -838,6 +838,7 @@ Response:
     - Installed `goose` for database migrations.
     - Designed and created the initial PostgreSQL database schema (`users`, `stands`, `bikes`, `bookings`, `violations` tables) in a `goose` migration file.
     - Integrated Gin web framework.
+    - Implemented configuration management, loading settings from environment variables and a `.env` file.
 - **Frontend**
     - Switched mobile app development to Flutter.
     - Manually downloaded and extracted Flutter SDK.
