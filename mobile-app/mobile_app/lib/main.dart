@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/login_screen.dart';
 import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/role_gate.dart';
 import 'packagepackage:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/camera_screen.dart';
+import 'packagepackage:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/scan_qr_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginScreen(),
         '/role_gate': (context) => const RoleGate(),
         '/camera': (context) => const CameraScreen(),
+        '/scan_qr': (context) => const ScanQrScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -24,6 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Text('This is the ${widget.role} dashboard.'),
             const SizedBox(height: 20),
             ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/scan_qr');
+              },
+              child: const Text('Scan Stand QR'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
               onPressed: () async {
                 final imagePath = await Navigator.of(context).pushNamed('/camera');
                 if (imagePath is String) {
