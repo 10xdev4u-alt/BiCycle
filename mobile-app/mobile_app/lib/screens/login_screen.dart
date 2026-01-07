@@ -1,8 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package.google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+
+  void _signIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final user = await _authService.signInWithGoogle();
+
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (user != null) {
+        Navigator.of(context).pushReplacementNamed('/role_gate');
+      } else {
+        // Handle sign-in failure
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Google Sign-In failed. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,52 +56,52 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'SVCE Cycle Access',
-                style: GoogleFonts.poppins(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: theme.colorScheme.onPrimary,
+          child: _isLoading
+              ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'SVCE Cycle Access',
+                      style: GoogleFonts.poppins(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        color: theme.colorScheme.onPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Your campus ride, one scan away.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: theme.colorScheme.onPrimary.withOpacity(0.9),
+                      ),
+                    ),
+                    const SizedBox(height: 64),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colorScheme.onPrimary,
+                        foregroundColor: theme.colorScheme.primary,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: _signIn,
+                      icon: const Icon(Icons.school), // Placeholder for Google icon
+                      label: Text(
+                        'Login with College Mail',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Your campus ride, one scan away.',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: theme.colorScheme.onPrimary.withOpacity(0.9),
-                ),
-              ),
-              const SizedBox(height: 64),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colorScheme.onPrimary,
-                  foregroundColor: theme.colorScheme.primary,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                onPressed: () {
-                  // TODO: Implement Google OAuth
-                  // For now, navigate to a placeholder home screen
-                  Navigator.of(context).pushReplacementNamed('/role_gate');
-                },
-                icon: const Icon(Icons.school), // Placeholder for Google icon
-                label: Text(
-                  'Login with College Mail',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
