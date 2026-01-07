@@ -14,6 +14,7 @@ type Config struct {
 	GoogleClientSecret  string
 	GoogleRedirectURL   string
 	JWTSecret           string
+	EncryptionKey       string
 }
 
 func LoadConfig() *Config {
@@ -29,6 +30,7 @@ func LoadConfig() *Config {
 		GoogleClientSecret:  getEnv("GOOGLE_CLIENT_SECRET", ""),
 		GoogleRedirectURL:   getEnv("GOOGLE_REDIRECT_URL", "http://localhost:8080/auth/google/callback"),
 		JWTSecret:           getEnv("JWT_SECRET", "supersecretjwtkey"),
+		EncryptionKey:       getEnv("ENCRYPTION_KEY", "12345678901234567890123456789012"),
 	}
 }
 

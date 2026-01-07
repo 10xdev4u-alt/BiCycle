@@ -14,7 +14,7 @@ import (
 
 // Decrypt AES-256-CBC encrypted text
 func Decrypt(encryptedText string, cfg *config.Config) (string, error) {
-	key := []byte(cfg.JWTSecret) // Using JWTSecret for now, should be a dedicated key
+	key := []byte(cfg.EncryptionKey)
 	ciphertext, err := base64.StdEncoding.DecodeString(encryptedText)
 	if err != nil {
 		return "", err
@@ -50,7 +50,7 @@ func Decrypt(encryptedText string, cfg *config.Config) (string, error) {
 
 // Encrypt encrypts text using AES-256-CBC
 func Encrypt(plaintext string, cfg *config.Config) (string, error) {
-    key := []byte(cfg.JWTSecret)
+    key := []byte(cfg.EncryptionKey)
     block, err := aes.NewCipher(key)
     if err != nil {
         return "", err
