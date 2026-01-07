@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/login_screen.dart';
 import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/role_gate.dart';
+import 'packagepackage:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/camera_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/role_gate': (context) => const RoleGate(),
+        '/camera': (context) => const CameraScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

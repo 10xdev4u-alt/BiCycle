@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
+  camera: ^0.11.0+1
+  path_provider: ^2.0.11
+  path: ^1.8.1
 
 dev_dependencies:
   flutter_test:
