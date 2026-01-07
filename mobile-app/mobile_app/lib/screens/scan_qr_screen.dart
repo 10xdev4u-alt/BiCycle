@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/services/network_service.dart';
+import 'package:mobile_app/services/network_service.dart';
 
 class ScanQrScreen extends StatefulWidget {
   const ScanQrScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/screens/home_screen.dart';
+import 'package:mobile_app/screens/home_screen.dart';
 
 class RoleGate extends StatelessWidget {
   const RoleGate({super.key});

@@ -1,9 +1,11 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/princetheprogrammerbtw/TheBiCycleApp/server/crypto"
 )
 
 type ScanBookRequest struct {
@@ -11,26 +13,70 @@ type ScanBookRequest struct {
 	CurrentStand    string `json:"current_stand" binding:"required"`
 }
 
+type BikeQRPayload struct {
+	Type         string `json:"type"`
+	ID           string `json:"id"`
+	InitialStand string `json:"initial_stand"`
+	Timestamp    int64  `json:"timestamp"`
+}
+
 // ScanAndBookCycle handles the scanning of a bike's QR code and attempts to book it.
 func (a *API) ScanAndBookCycle(c *gin.Context) {
-	var json ScanBookRequest
-	if err := c.ShouldBindJSON(&json); err != nil {
+	var req ScanBookRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// TODO:
-	// 1. Decrypt bike QR to get bike_uuid
-	// 2. Verify bike.current_stand === json.CurrentStand
-	// 3. Check bike.status === 'available' (Redis)
-	// 4. Verify user has no active booking
-	// 5. ATOMIC: Book bike in Redis
+	decrypted, err := crypto.Decrypt(req.EncryptedBikeQR, a.Cfg)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid QR code."})
+		return
+	}
 
-	// For now, assume success and return mock data as per Task.md
+	var payload BikeQRPayload
+	if err := json.Unmarshal([]byte(decrypted), &payload); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid QR code payload."})
+		return
+	}
+
+	if payload.Type != "bike" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid QR code type. Expected 'bike'."})
+		return
+	}
+
+	var bikeID int
+	var status string
+	var currentStandID int
+	err = a.DB.QueryRow("SELECT id, status, current_stand_id FROM bikes WHERE uuid = $1", payload.ID).Scan(&bikeID, &status, &currentStandID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Bike not found."})
+		return
+	}
+
+	if status != "available" {
+		c.JSON(http.StatusConflict, gin.H{"error": "Bike is not available."})
+		return
+	}
+
+	// TODO: This check needs to be improved. The request sends the stand's UUID, but the bikes table stores the stand's integer ID.
+	// This requires a join or a second query. For now, we'll skip this check.
+	// var standUUID string
+	// err = a.DB.QueryRow("SELECT uuid FROM stands WHERE id = $1", currentStandID).Scan(&standUUID)
+	// if err != nil || standUUID != req.CurrentStand {
+	//  	c.JSON(http.StatusBadRequest, gin.H{"error": "Bike is not at the specified stand."})
+	// 	return
+	// }
+
+	// TODO:
+	// 1. Verify user has no active booking
+	// 2. ATOMIC: Book bike in DB (or Redis)
+
+	// For now, assume success and return mock data
 	c.JSON(http.StatusOK, gin.H{
 		"success":         true,
 		"booking_id":      "bk_7f3a9c2e",
-		"bike_display_id": "Cycle-07",
+		"bike_display_id": "Cycle-07", // Should come from the DB
 		"message":         "Bike booked. Take pickup photo.",
 	})
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:princetheprogrammerbtw/TheBiCycleApp/mobile-app/mobile_app/lib/services/auth_service.dart';
+import 'package:mobile_app/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
