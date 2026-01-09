@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SVCE Cycle Access',
       theme: _buildThemeData(),
-      initialRoute: '/',
+      initialRoute: '/role_gate',
       routes: {
         '/': (context) => const LoginScreen(),
         '/role_gate': (context) => const RoleGate(),
