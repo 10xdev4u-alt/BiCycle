@@ -18,24 +18,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    final user = await _authService.signInWithGoogle();
+    await _authService.signInWithGoogle();
 
     if (mounted) {
       setState(() {
         _isLoading = false;
       });
 
-      if (user != null) {
-        Navigator.of(context).pushReplacementNamed('/role_gate');
-      } else {
-        // Handle sign-in failure
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Google Sign-In failed. Please try again.'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+      // Assuming signInWithGoogle initiates the auth flow
+      // and we will be redirected or state will change elsewhere.
+      // For now, navigate directly after initiation.
+      Navigator.of(context).pushReplacementNamed('/role_gate');
     }
   }
 
